@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Palace</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/genai": "https://esm.sh/@google/genai@^0.14.0"
+        }
+      }
+    </script>
+</head>
+<body>
+    <main id="app">
+        <header>
+            <h1>Memory Palace</h1>
+            <p>Weave your facts into a memorable story.</p>
+            <div id="coin-display" aria-live="polite">
+                <span class="coin-icon" aria-hidden="true">💰</span>
+                <span id="coin-count">0</span>
+            </div>
+        </header>
+        <div class="container">
+            <div class="card" id="study">
+                <h2>The Study</h2>
+                <p>Enter your facts below, one per line.</p>
+                <textarea id="facts-input" placeholder="Example:
+1066: The Battle of Hastings
+1492: Columbus sails the ocean blue
+1776: Declaration of Independence signed" rows="8"></textarea>
+                <button id="generate-button" aria-label="Weave a story from the facts">
+                    <span class="button-text">Weave a Story</span>
+                    <div class="spinner" hidden></div>
+                </button>
+            </div>
+            <div class="card" id="palace">
+                <h2>The Palace Foyer</h2>
+                <div id="story-output" role="status" aria-live="polite">
+                    <p class="placeholder">Your magical story will appear here...</p>
+                </div>
+                <div id="gallery-container">
+                     <h3 id="gallery-title" hidden>The Characters</h3>
+                    <div id="character-gallery" aria-live="polite"></div>
+                </div>
+                <button id="start-review-button" hidden>Start Review</button>
+            </div>
+        </div>
+
+        <div id="quiz-container" class="card" hidden>
+            <p id="quiz-progress"></p>
+            <img id="quiz-character-image" src="" alt="A character from your story">
+            <h3 id="quiz-question-text"></h3>
+            <div id="quiz-answers"></div>
+        </div>
+
+        <div id="quiz-summary" class="card" hidden>
+            <h2>Review Complete!</h2>
+            <p id="summary-score"></p>
+            <p id="summary-coins"></p>
+            <button id="reset-button">Create a New Story</button>
+        </div>
+
+    </main>
+    <script type="module" src="index.tsx"></script>
+</body>
+</html>

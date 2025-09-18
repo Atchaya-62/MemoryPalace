@@ -1,0 +1,355 @@
+/* Basic Reset & Font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #fdfaf6;
+    color: #4a4a4a;
+    line-height: 1.6;
+    padding: 2rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Main App Layout */
+#app {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px solid #e0d8cd;
+    padding-bottom: 1rem;
+    position: relative; /* For coin display positioning */
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #6a5acd; /* SlateBlue */
+}
+
+/* --- Gamification --- */
+#coin-display {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    background-color: #fff;
+    border: 2px solid #ffd700; /* Gold */
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.coin-icon {
+    font-size: 1.2rem;
+}
+
+/* Animation for when coins are awarded */
+#coin-display.awarded {
+    animation: coin-award-anim 0.6s ease-out;
+}
+
+@keyframes coin-award-anim {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2) rotate(-5deg); color: #ffbf00; }
+    100% { transform: scale(1); }
+}
+
+
+/* Main Container for study and palace */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Card Styling */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    height: 100%;
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    color: #483d8b; /* DarkSlateBlue */
+    margin-bottom: 1rem;
+}
+
+/* Input Area "The Study" */
+#study {
+    display: flex;
+    flex-direction: column;
+}
+
+#facts-input {
+    width: 100%;
+    flex-grow: 1;
+    min-height: 250px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#facts-input:focus {
+    outline: none;
+    border-color: #6a5acd;
+    box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.2);
+}
+
+/* Button Styling */
+#generate-button, #start-review-button, #reset-button {
+    background: linear-gradient(45deg, #6a5acd, #836FFF);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    width: 100%;
+}
+#reset-button {
+    margin-top: 1rem;
+}
+
+#generate-button:hover:not(:disabled),
+#start-review-button:hover:not(:disabled),
+#reset-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(106, 90, 205, 0.3);
+}
+
+#generate-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+#start-review-button {
+    margin-top: 1.5rem;
+    background: linear-gradient(45deg, #32cd32, #228b22); /* Green gradient */
+}
+
+#start-review-button:hover:not(:disabled) {
+     box-shadow: 0 6px 15px rgba(50, 205, 50, 0.3);
+}
+
+/* Spinner for loading state */
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Output Area "The Palace Foyer" */
+#story-output {
+    min-height: 150px; /* Adjusted min-height */
+    white-space: pre-wrap; /* To respect newlines from Gemini */
+    word-wrap: break-word; /* To prevent long words from overflowing */
+    margin-bottom: 2rem;
+}
+
+#story-output .placeholder {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding-top: 2rem;
+}
+
+#gallery-title {
+    color: #483d8b;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+#character-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.character-card {
+    background: #f8f7ff;
+    border: 1px solid #e0d8cd;
+    border-radius: 8px;
+    padding: 0.75rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.img-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #eee;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.img-placeholder .spinner {
+    width: 24px;
+    height: 24px;
+    border-color: rgba(0,0,0,0.1);
+    border-top-color: #6a5acd;
+}
+
+.character-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.character-card p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* --- Quiz Component --- */
+#quiz-container {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#quiz-progress {
+    font-weight: 700;
+    color: #6a5acd;
+}
+
+#quiz-character-image {
+    max-width: 200px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+
+#quiz-answers {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.answer-button {
+    background-color: #f8f7ff;
+    border: 2px solid #e0d8cd;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.answer-button:hover:not(:disabled) {
+    background-color: #e0d8cd;
+    border-color: #6a5acd;
+}
+
+.answer-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.answer-button.correct {
+    background-color: #c8e6c9; /* Light green */
+    border-color: #388e3c; /* Dark green */
+    color: #388e3c;
+}
+
+.answer-button.incorrect {
+    background-color: #ffcdd2; /* Light red */
+    border-color: #d32f2f; /* Dark red */
+    color: #d32f2f;
+}
+
+/* --- Quiz Summary --- */
+#quiz-summary {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+#quiz-summary h2 {
+    font-size: 2rem;
+    color: #6a5acd;
+}
+#summary-score {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+#summary-coins {
+    font-size: 1.2rem;
+    color: #4a4a4a;
+    font-weight: bold;
+}
+
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+    body {
+        padding: 1rem;
+    }
+    #coin-display {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.2rem 0.6rem;
+        font-size: 1rem;
+    }
+    #quiz-answers {
+        grid-template-columns: 1fr;
+    }
+}
